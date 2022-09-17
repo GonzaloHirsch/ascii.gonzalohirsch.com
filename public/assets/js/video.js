@@ -15,28 +15,31 @@ const setDimensions = (w, h) => {
     customCanvas.style.height = h;
 }
 
+// Processing speed
+// Delay is in millis, so 24fps would be a delay of 1000/24 ~= 40
+const delay = 60;
+let isProcessing = false;
+let isColor = false;
+let canColorize = false;
+let interval;
+
 // Handle resizing when in small viewports
 const handleWindowResize = () => {
     var clientWidth = document.body.clientWidth;
     if (clientWidth < 768) {
         width = 75;
         height = 75;
+        canColorize = false;
     } else {
         width = 150;
         height = 150;
+        canColorize = true;
     }
     setDimensions(`${width}ch`, `${height}ch`);
 }
 handleWindowResize();
 
 window.onresize = handleWindowResize;
-
-// Processing speed
-// Delay is in millis, so 24fps would be a delay of 1000/24 ~= 40
-const delay = 60;
-let isProcessing = false;
-let isColor = false;
-let interval;
 
 const startStreaming = () => {
     navigator.mediaDevices.getUserMedia({ audio: false, video: { width: width, height: height } })
@@ -146,8 +149,10 @@ changeFactor(50);
 
 // Changing colorize
 const toggleColorize = () => {
-    isColor = !isColor;
-    setDimensions(isColor ? 'unset' : `${width}ch`, isColor ? 'unset' : `${height}ch`);
+    if (canColorize) {
+        isColor = !isColor;
+        setDimensions(isColor ? 'unset' : `${width}ch`, isColor ? 'unset' : `${height}ch`);
+    }
 }
 
 // Some variables
@@ -157,7 +162,6 @@ let targetChar, result, item, value, char;
 const getChar = (val) => {
     targetChar = alpha.charAt(Math.floor(val * alphaLen));
     if (isColor) {
-        console.log(alphaColorMap[targetChar], targetChar)
         return targetChar === ' ' ? '&nbsp;' : ("<i class=\"" + alphaColorMap[targetChar] + "\">" + targetChar + "</i>");
     }
     return targetChar === ' ' ? '&nbsp;' : targetChar;
