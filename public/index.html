@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Stream by Gonzalo Hirsch</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/colors.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!-- SEO - JSON+LD -->
+    <script
+        type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","name":"ASCII Stream by Gonzalo Hirsch","url":"https://ascii.gonzalohirsch.com/"}</script>
+    <script
+        type="application/ld+json">{"@context":"http://www.schema.org","@type":"Person","@id":"https://gonzalohirsch.com/#about","name":"Gonzalo Hirsch","alternateName":"Gonzalo Hirsch","nationality":"Argentinian","alumniOf":[{"@type":"CollegeOrUniversity","name":"Instituto Tecnológico de Buenos Aires","sameAs":"http://itba.edu.ar/"}],"gender":"Male","jobTitle":"Software Engineer","worksFor":[{"@type":"Organization","name":"Toptal","sameAs":["https://www.toptal.com/","https://www.linkedin.com/company/toptal","https://twitter.com/toptal","https://www.facebook.com/toptal","https://www.instagram.com/toptal/"]}],"url":"https://gonzalohirsch.com/","image":"https://gonzalohirsch.com/meta-img.jpg","sameAs":["https://gonzalohirsch.com/","https://github.com/GonzaloHirsch","https://www.linkedin.com/in/gonzalo-hirsch/","https://www.instagram.com/gonzalohirsch/?hl=en","https://www.toptal.com/resume/gonzalo-hirsch"]}</script>
+    <!-- SEO -->
+    <meta hid="description" name="description"
+        content="Stream yourself into an ASCII version of yourself and experience your ASCII double.">
+    <meta hid="keywords" name="keywords"
+        content="Development, Developer, Software, Engineer, Software Engineer, Engineering, Full-Stack, Freelancer, Experiences, ASCII, Stream, Streaming, Javascript">
+    <meta hid="author" name="author" content="Gonzalo Hirsch">
+    <meta hid="og:title" property="og:title" content="ASCII Stream by Gonzalo Hirsch">
+    <meta hid="og:url" property="og:url" content="https://ascii.gonzalohirsch.com/">
+    <meta hid="og:description" property="og:description"
+        content="Stream yourself into an ASCII version of yourself and experience your ASCII double.">
+    <meta hid="og:image" property="og:image" content="https://ascii.gonzalohirsch.com/meta-img.jpeg">
+    <meta hid="og:type" property="og:type" content="website">
+    <meta hid="og:image:type" property="og:image:type" content="image/jpeg">
+    <meta hid="og:image:width" property="og:image:width" content="400">
+    <meta hid="og:image:height" property="og:image:height" content="400">
+    <meta hid="og:image:alt" property="og:image:alt" content="Gonzalo Hirsch">
+    <meta hid="twitter:card" name="twitter:card" content="Summary">
+    <meta hid="twitter:title" name="twitter:title" content="ASCII Stream by Gonzalo Hirsch">
+    <meta hid="twitter:url" name="twitter:url" content="https://ascii.gonzalohirsch.com/">
+    <meta hid="twitter:description" name="twitter:description"
+        content="Stream yourself into an ASCII version of yourself and experience your ASCII double.">
+    <meta hid="twitter:image" name="twitter:image" content="https://gonzalohirsch.com/meta-img.jpeg">
+    <meta hid="twitter:image:alt" name="twitter:image:alt" content="Gonzalo Hirsch">
+    <link hid="canonical" rel="canonical" href="https://gonzalohirsch.com/">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "ASCII Stream by Gonzalo Hirsch",
+        "url": "https://ascii.gonzalohirsch.com/",
+        "description": "Stream yourself into an ASCII version of yourself and experience your ASCII double.",
+        "publisher": {
+          "@context": "http://www.schema.org",
+          "@type": "Person",
+          "@id": "https://gonzalohirsch.com/#about",
+          "name": "Gonzalo Hirsch",
+          "alternateName": "Gonzalo Hirsch",
+          "nationality": "Argentinian",
+          "alumniOf": [{
+            "@type": "CollegeOrUniversity",
+            "name": "Instituto Tecnológico de Buenos Aires",
+            "sameAs": "http://itba.edu.ar/"
+          }],
+          "gender": "Male",
+          "jobTitle": "Software Engineer",
+          "worksFor": [{
+            "@type": "Organization",
+            "name": "Toptal",
+            "sameAs": ["https://www.toptal.com/", "https://www.linkedin.com/company/toptal", "https://twitter.com/toptal", "https://www.facebook.com/toptal", "https://www.instagram.com/toptal/"]
+          }],
+          "url": "https://gonzalohirsch.com/",
+          "image": "https://gonzalohirsch.com/meta-img.jpg",
+          "sameAs": ["https://gonzalohirsch.com/", "https://github.com/GonzaloHirsch", "https://www.linkedin.com/in/gonzalo-hirsch/", "https://www.instagram.com/gonzalohirsch/?hl=en", "https://www.toptal.com/resume/gonzalo-hirsch"]
+        },
+        "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.en_US"
+      }
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HCQM8VYZF7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-HCQM8VYZF7');
+    </script>
+</head>
+
+<body>
+    <!-- Hidden elements -->
+    <video class="image-video" autoplay></video>
+    <canvas class="image-canvas"></canvas>
+    <!-- Custom canvas to display everything -->
+    <header>
+        <h1>ASCII Stream <span class="credits">by <a href="https://gonzalohirsch.com" target="_blank"
+                    rel="noopener">Gonzalo Hirsch</a></span></h1>
+    </header>
+    <main>
+        <div class="canvas-wrapper">
+            <div id="customCanvas">
+                <span class="disclaimer">Stream will start here...</span>
+            </div>
+        </div>
+        <div class="content-wrapper">
+            <h2>Convert yourself to ASCII</h2>
+            <p>Click <em>Start</em> to enable the webcam and let the site process you into ASCII. You can change the
+                <em>Threshold Factor</em> to change how the image noise; a higher threshold produces a cleaner image.
+                Colorizing the image will result in less performance, and I don't recommend opening Dev Tools while
+                streaming.
+            </p>
+            <p>If you find a frame you like, click <em>Copy Frame</em> to store it.</p>
+            <p>Note: Resizing the screen while streaming might cause issues, I recommend stopping and then starting
+                again.</p>
+            <p>All the code for this project can be found on <a
+                    href="https://github.com/GonzaloHirsch/ascii.gonzalohirsch.com" target="_blank"
+                    rel="noopener noreferrer">Github</a>.</p>
+            <div class="buttons-wrapper">
+                <button id="start-button" class="button" onclick="startStreaming()">Start</button>
+                <button id="stop-button" class="button" onclick="stopProcessing()">Stop</button>
+                <button id="copy-button" class="button" onclick="copyFrame()">Copy Frame</button>
+            </div>
+            <textarea id="hidden-input" type="text"></textarea>
+            <div class="controls-wrapper">
+                <h3>Controls</h3>
+                <table class="controls-table">
+                    <tbody>
+                        <tr>
+                            <td class="control-name">
+                                <label for="factor">Threshold Factor</label>
+                            </td>
+                            <td class="threshold">
+                                <span id="factor-label">50</span>
+                                <input id="factor" type="range" min="1" max="100" value="50"
+                                    onchange="changeFactor(this.value)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="control-name">
+                                <label for="factor">Colorize</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="colorize" value="colorize"
+                                    onchange="toggleColorize(this.value)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="share-controls">
+                <h3>Share</h3>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
+                        data-text="Check out this ASCII video generator from Gonzalo Hirsch."
+                        data-url="https://ascii.gonzalohirsch.com" data-show-count="false">Tweet</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    <iframe
+                        src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fascii.gonzalohirsch.com&layout=button&size=small&appId=400525667891154&width=67&height=20"
+                        width="67" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                        allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    <script type="IN/Share" data-url="https://ascii.gonzalohirsch.com"></script>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <a href="https://gonzalohirsch.com" target="_blank" rel="noopener">Gonzalo Hirsch</a> - 2022
+    </footer>
+    <script src="assets/js/video.js"></script>
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+</body>
+
+</html>
