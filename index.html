@@ -89,9 +89,8 @@
 </head>
 
 <body>
-    <!-- Hidden elements -->
-    <video class="image-video" autoplay></video>
-    <canvas class="image-canvas"></canvas>
+    <!-- <video class="image-video" autoplay></video>
+    <canvas class="image-canvas"></canvas> -->
     <!-- Custom canvas to display everything -->
     <header>
         <h1>ASCII Stream <span class="credits">by <a href="https://gonzalohirsch.com" target="_blank"
@@ -100,28 +99,21 @@
     <main>
         <div class="canvas-wrapper">
             <div id="customCanvas">
-                <span class="disclaimer">Stream will start here...</span>
+                <span class="disclaimer">Click "Start" to stream...</span>
             </div>
+            <!-- Hidden elements -->
+            <video class="image-video" autoplay></video>
+            <canvas class="image-canvas"></canvas>
         </div>
         <div class="content-wrapper">
-            <h2>Convert yourself to ASCII</h2>
-            <p>Click <em>Start</em> to enable the webcam and let the site process you into ASCII. You can change the
-                <em>Threshold Factor</em> to change how the image noise; a higher threshold produces a cleaner image.
-                Colorizing the image will result in less performance, and I don't recommend opening Dev Tools while
-                streaming (Colorizing is not available on mobile devices due to performance limitations).
-            </p>
-            <p>If you find a frame you like, click <em>Copy Frame</em> to store it.</p>
-            <p>Note: Resizing the screen while streaming might cause issues, I recommend stopping and then starting
-                again.</p>
-            <p>All the code for this project can be found on <a
-                    href="https://github.com/GonzaloHirsch/ascii.gonzalohirsch.com" target="_blank"
-                    rel="noopener noreferrer">Github</a>.</p>
             <div class="buttons-wrapper">
                 <button id="start-button" class="button" onclick="startStreaming()">Start</button>
                 <button id="stop-button" class="button" onclick="stopProcessing()">Stop</button>
                 <button id="copy-button" class="button" onclick="copyFrame()">Copy Frame</button>
+                <button id="download-button" class="button" onclick="downloadFrame()">Download Frame</button>
             </div>
             <textarea id="hidden-input" type="text"></textarea>
+            <a id="hidden-download"></a>
             <div class="controls-wrapper">
                 <h3>Controls</h3>
                 <table class="controls-table">
@@ -138,6 +130,16 @@
                         </tr>
                         <tr>
                             <td class="control-name">
+                                <label for="fps">Frames Per Second</label>
+                            </td>
+                            <td class="threshold">
+                                <span id="fps-label">16</span>
+                                <input id="fps" type="range" min="1" max="20" value="16"
+                                    onchange="changeFps(this.value)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="control-name">
                                 <label for="factor">Colorize</label>
                             </td>
                             <td>
@@ -148,6 +150,19 @@
                     </tbody>
                 </table>
             </div>
+            <h2>Convert yourself to ASCII</h2>
+            <p>Click <em>Start</em> to enable the webcam and let the site process you into ASCII. You can change the
+                <em>Threshold Factor</em> to change the image noise; a higher threshold produces a cleaner image.
+                Changing <em>Frames Per Second</em> can produce smoother video at the cost of performance. Colorizing
+                the image will result in less performance, and I don't recommend opening Dev Tools while
+                streaming (Colorizing is not available on mobile devices due to performance limitations).
+            </p>
+            <p>If you find a frame you like, click <em>Copy Frame</em> to copy it to the clipboard, otherwise use <em>Download Frame</em> to store it as a PNG (Downloading colored frames doesn't work very well).</p>
+            <p>Note: Resizing the screen while streaming might cause issues, I recommend stopping and then starting
+                again.</p>
+            <p>All the code for this project can be found on <a
+                    href="https://github.com/GonzaloHirsch/ascii.gonzalohirsch.com" target="_blank"
+                    rel="noopener noreferrer">Github</a>.</p>
             <div class="share-controls">
                 <h3>Share</h3>
                 <div class="share-buttons">
@@ -169,6 +184,7 @@
         <a href="https://gonzalohirsch.com" target="_blank" rel="noopener">Gonzalo Hirsch</a> - 2022
     </footer>
     <script src="assets/js/video.js"></script>
+    <script src="assets/js/dom-to-image.min.js"></script>
     <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
 </body>
 

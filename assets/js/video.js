@@ -1,6 +1,5 @@
 const video = document.querySelector('video');
 const canvas = document.querySelector('canvas');
-// Set dynamic character size in the custom canvas
 const customCanvas = document.getElementById("customCanvas");
 
 // Getting the image
@@ -17,7 +16,8 @@ const setDimensions = (w, h) => {
 
 // Processing speed
 // Delay is in millis, so 24fps would be a delay of 1000/24 ~= 40
-const delay = 60;
+let delay = 60;
+let hasStarted = false;
 let isProcessing = false;
 let isColor = false;
 let canColorize = false;
@@ -25,24 +25,36 @@ let interval;
 
 // Handle resizing when in small viewports
 const handleWindowResize = () => {
-    var clientWidth = document.body.clientWidth;
+    var clientWidth = document.body.clientWidth + 96;
     if (clientWidth < 768) {
+        if (width > 75 && isProcessing) {
+            startStreaming();
+        }
         width = 75;
         height = 75;
         canColorize = false;
     } else {
+        if (width < 150 && isProcessing) {
+            startStreaming();
+        }
         width = 150;
         height = 150;
         canColorize = true;
     }
-    setDimensions(`${width}ch`, `${height}ch`);
+    setDimensions(`${width + 0.1}ch`, `${height + 0.1}ch`);
 }
 handleWindowResize();
 
 window.onresize = handleWindowResize;
 
 const startStreaming = () => {
-    navigator.mediaDevices.getUserMedia({ audio: false, video: { width: width, height: height } })
+    navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            width: { min: 150, ideal: 1280, max: 1920 },
+            height: { min: 150, ideal: 720, max: 1080 },
+        }
+    })
         .then(stream => {
             // Store the stream
             video.srcObject = stream;
@@ -51,32 +63,37 @@ const startStreaming = () => {
             // Start processing
             startProcessing();
             isProcessing = true;
+            hasStarted = true;
         })
         .catch(error => console.error(error));
 }
 
 const startProcessing = () => {
     // Set an interval to take frames
+    clearInterval(interval);
     interval = setInterval(processFrame, delay);
 };
 const stopProcessing = () => {
     clearInterval(interval);
+    isProcessing = false;
 };
 
 const processFrame = () => {
     // Not process initial frames
     if (video.videoWidth > 0) {
         // Draw the frame to the canvas
-        ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+        ctx.drawImage(video, 0, 0, width, height);
         // Take the data from the canvas and transform it
         // Comes in width * height * 4 (RGBA)
-        transformFrame(ctx.getImageData(0, 0, video.videoWidth, video.videoHeight).data);
+        transformFrame(ctx.getImageData(0, 0, width, height).data);
+        // Set dimensions to auto
+        setDimensions(`${width + 0.1}ch`, 'auto');
     }
 };
 
 const hiddenInput = document.getElementById('hidden-input');
 const copyFrame = () => {
-    if (isProcessing) {
+    if (hasStarted) {
         hiddenInput.innerHTML = customCanvas.innerHTML.replace(/\&nbsp;/gi, " ").replace(/<i class=\"c[0-9]*\">/gi, "").replace(/<\/i>/gi, "").replace(/<br\s*[\/]?>/gi, "\r\n");
         // Select the text field
         hiddenInput.select();
@@ -84,7 +101,24 @@ const copyFrame = () => {
         // Copy the text inside the text field
         navigator.clipboard.writeText(hiddenInput.value);
     } else {
-        console.log("Cannot copy frame if not processing first.");
+        console.error("Cannot copy frame if not processing first.");
+    }
+}
+
+const hiddenDownload = document.getElementById('hidden-download');
+const downloadFrame = () => {
+    if (hasStarted) {
+        domtoimage.toPng(customCanvas)
+            .then(function (dataUrl) {
+                hiddenDownload.download = `ascii-stream-frame-${Date.now()}.png`;
+                hiddenDownload.href = dataUrl;
+                hiddenDownload.click();
+            })
+            .catch(function (error) {
+                console.error('Error downloading frame', error);
+            });
+    } else {
+        console.error("Cannot download frame if not processing first.");
     }
 }
 
@@ -147,11 +181,20 @@ const changeFactor = (val) => {
 }
 changeFactor(50);
 
+// Frames per second
+const fpsLabel = document.getElementById("fps-label");
+const changeFps = (val) => {
+    delay = 1000 / val;
+    fpsLabel.innerHTML = val;
+    startProcessing();
+}
+changeFps(16);
+
 // Changing colorize
 const toggleColorize = () => {
     if (canColorize) {
         isColor = !isColor;
-        setDimensions(isColor ? 'unset' : `${width}ch`, isColor ? 'unset' : `${height}ch`);
+        setDimensions(isColor ? 'unset' : `${width + 0.1}ch`, isColor ? 'unset' : `${height + 0.1}ch`);
     }
 }
 

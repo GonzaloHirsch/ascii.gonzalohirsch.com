@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     background-color: #000000;
     margin: 0;
     padding: 0;
@@ -9,11 +10,19 @@ html, body {
 }
 
 body {
-    margin: 1rem;
+    margin: 1rem 3rem;
 }
 
-.image-canvas, .image-video {
-    display: none;
+/* Make the canvas & video follow you because of Safari issues */
+.image-canvas,
+.image-video {
+    z-index: -1;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 1px;
+    height: 1px;
 }
 
 #customCanvas {
@@ -52,6 +61,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
 }
 
 header {
@@ -70,10 +82,16 @@ header ul {
     border-radius: 4px;
     border: solid #ffffff;
     background-color: #000000;
-    font-size: 25px;
+    font-size: 18px;
     cursor: pointer;
     width: fit-content;
     margin: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .button {
+        font-size: 25px;
+    }
 }
 
 .button:hover {
@@ -91,7 +109,7 @@ header ul {
 /* CONTROLS */
 
 .buttons-wrapper {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,7 +123,7 @@ header ul {
 }
 
 .controls-wrapper {
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .controls-table {
@@ -125,7 +143,8 @@ header ul {
     display: block;
 }
 
-#hidden-input, #hidden-download {
+#hidden-input,
+#hidden-download {
     display: none;
 }
 
@@ -144,6 +163,26 @@ header ul {
 
 .share-buttons > * {
     margin: 0.5rem !important;
+}
+
+/* SOLVES RANGE RENDERING ISSUES IN SAFARI */
+input[type='range'] {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 8px;
+    height: 7px;
+    border: 1px solid #bdc3c7;
+    background-color: #fff;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 /* HEADER */
@@ -175,7 +214,7 @@ a {
 }
 
 a:hover {
-    color: #DF9A2C;
+    color: #df9a2c;
 }
 
 /* FOOTER */
